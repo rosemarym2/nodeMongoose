@@ -17,3 +17,21 @@ exports.listMovies = async () => {
         console.log(error)
     } 
 };
+
+exports.updateMovie = async (movieObj) => {
+    try {
+        const update = await Movie.updateOne({title: movieObj.title}, {actor: movieObj.actor}, {rating: movieObj.rating})
+        console.log(`Successfully Updated Movie`)
+    } catch (error) {
+        console.log(error)
+    } 
+};
+
+exports.deleteMovie = async (movieObj) => {
+    try {
+        const deleteMovie = await Movie.deleteOne(movieObj)
+        console.log(`Successfully Deleted Movie`)
+    } catch (error) {
+        console.log(error)
+    } 
+};
