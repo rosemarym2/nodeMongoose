@@ -20,7 +20,7 @@ exports.listMovies = async () => {
 
 exports.updateMovie = async (movieObj) => {
     try {
-        console.log(await Movie.updateOne({title: movieObj.title}, {actor: movieObj.actor}, {rating: movieObj.rating}))
+        console.log(await Movie.updateOne({title: movieObj.title}, {actor: movieObj.actor, rating: movieObj.rating, year: movieObj.year}, {upsert: true}))
         console.log(`Successfully Updated Movie`)
     } catch (error) {
         console.log(error)

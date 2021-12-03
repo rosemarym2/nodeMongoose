@@ -14,6 +14,12 @@ const movieSchema = new mongoose.Schema({
         min: 1,
         max: 10
     },
+    year:{
+        type: Number,
+        min: 1888,
+        max: 2200,
+        required: [true, "Please check title entry, not a valid year"]
+    }
 });
 
 const Movie = mongoose.model("Movie", movieSchema);
