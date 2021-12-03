@@ -1,10 +1,13 @@
 const Movie = require("./movieModels");
 
+const mongoose = require("mongoose");
+
 exports.addMovie = async (movieObj) =>{
     try {
         const movie = await new Movie(movieObj);
         await movie.save();
-        console.log(`Successfully added ${movie.title}`)
+        console.log(`Successfully Added ${movie.title}`)
+        mongoose.connection.close();
     } catch (error) {
         console.log(error)
     }
@@ -13,15 +16,18 @@ exports.addMovie = async (movieObj) =>{
 exports.listMovies = async () => {
     try {
         console.log(await Movie.find({}))
+        mongoose.connection.close();
     } catch (error) {
         console.log(error)
     } 
 };
 
-exports.updateMovie = async (movieObj) => {
+exports.updateMovie = async (movieId, movieObj) => {
     try {
-        console.log(await Movie.updateOne({title: movieObj.title}, {actor: movieObj.actor, rating: movieObj.rating, year: movieObj.year}, {upsert: true}))
-        console.log(`Successfully Updated Movie`)
+        const movie = await Movie.findById(movieId);
+        console.log(await Movie.findByIdAndUpdate({_id: movieId._id}, {title: movieObj.title, actor: movieObj.actor, rating: movieObj.rating, year: movieObj.year}, {upsert: true}))
+        console.log(`Successfully Updated ${movie.title}`)
+        mongoose.connection.close();
     } catch (error) {
         console.log(error)
     } 
@@ -29,8 +35,10 @@ exports.updateMovie = async (movieObj) => {
 
 exports.deleteMovie = async (movieObj) => {
     try {
+        const movie = await Movie(movieObj);
         console.log(await Movie.deleteOne(movieObj))
-        console.log(`Successfully Deleted Movie`)
+        console.log(`Successfully Deleted ${movie.title}`)
+        mongoose.connection.close();
     } catch (error) {
         console.log(error)
     } 

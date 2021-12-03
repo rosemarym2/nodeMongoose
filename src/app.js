@@ -13,7 +13,7 @@ const app = async (args) =>{
             listMovies();
         break;
         case "update":
-            updateMovie({title: args.title, actor: args.actor, rating: args.rating, year: args.year})
+            updateMovie({_id: args._id}, {title: args.title, actor: args.actor, rating: args.rating, year: args.year})
         break;
         case "delete":
             deleteMovie({title: args.title, actor: args.actor, rating: args.rating, year: args.year})
