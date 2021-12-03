@@ -25,7 +25,8 @@ exports.listMovies = async () => {
 exports.updateMovie = async (movieId, movieObj) => {
     try {
         const movie = await Movie.findById(movieId);
-        console.log(await Movie.findByIdAndUpdate({_id: movieId._id}, {title: movieObj.title, actor: movieObj.actor, rating: movieObj.rating, year: movieObj.year}, {upsert: true}))
+        console.log(await Movie.findByIdAndUpdate({_id: movieId._id}, (movieObj),
+            {upsert: true, new: true, runValidators: true}))
         console.log(`Successfully Updated ${movie.title}`)
         mongoose.connection.close();
     } catch (error) {
